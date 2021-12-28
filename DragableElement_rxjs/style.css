@@ -1,0 +1,12 @@
+body {
+  background: black;
+}
+
+.dragable {  
+  height: 100px;  
+  width: 100px;  
+  background: #031f5b;  
+  position: absolute; 
+  top: 0px; 
+  left: 0px; 
+}
