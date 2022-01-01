@@ -38,6 +38,10 @@ const createBox = R.curry((color, height, zPosition) => {
   return cube;
 });
 
+function print(str) {
+  console.log(str)
+}
+
 const createBoxInSameLavel = createBox(0x031f5b, 0);
 
 let cube = createBoxInSameLavel(0);
@@ -64,13 +68,16 @@ const shmPosition = R.pipe(
 const setPosition = R.curry(zposition => {
   let x = cube.position.x;
   let y = cube.position.y;
-  return R.set(positionLens, new THREE.Vector3(x, y, zposition), cube)
+  //cube.position.setZ(zposition)
+  return cube
+  //return R.set(positionLens, new THREE.Vector3(0,0,1), cube)
 })
 
 const cubeAnimate = R.pipe(
   R.view(degreeLens),
   shmPosition,
   setPosition,
+  R.tap(print),
   R.over(degreeLens, R.add(3)),
   R.over(degreeLens, R.modulo(R.__, 360))
 );
@@ -87,10 +94,10 @@ scene.add(cube);
 
 function animate() {
   renderer.render(scene, camera);
-
+  //scene.remove(cube);
   cube = cubeAnimate(cube);
-  
-  requestAnimationFrame(animate);
+  //scene.add(cube);
+  //requestAnimationFrame(animate);
 }
 
 animate();
